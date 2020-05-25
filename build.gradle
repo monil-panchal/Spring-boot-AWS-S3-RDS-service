@@ -1,0 +1,45 @@
+plugins {
+    id 'org.springframework.boot' version '2.3.0.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'java'
+}
+
+group = 'com.csci5410'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+
+    // https://mvnrepository.com/artifact/software.amazon.awssdk/s3
+    compile group: 'software.amazon.awssdk', name: 's3', version: '2.13.20'
+
+    // https://mvnrepository.com/artifact/software.amazon.awssdk/rds
+    compile group: 'software.amazon.awssdk', name: 'rds', version: '2.13.20'
+
+    // https://mvnrepository.com/artifact/mysql/mysql-connector-java
+    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.20'
+
+    compile files('libs/ojdbc7.jar')
+}
+
+test {
+    useJUnitPlatform()
+}
